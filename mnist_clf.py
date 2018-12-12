@@ -157,7 +157,7 @@ class Mnist_CNN:
             upper = np.clip(tmp+eps,0,1)
 
             for itr in range(max_iter):
-                g = self.sess.run(grad,{adv_imgs:tmp,self.labels_adv:self.advY})
+                g = self.sess.run(grad,{adv_imgs:tmp,self.labels_adv:self.advY[i]})
                 tmp = tmp - alpha*np.sign(g[0])
                 tmp = np.clip(tmp,lower,upper)
             adv_list.append(list(tmp[0]))
