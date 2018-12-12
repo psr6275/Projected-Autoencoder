@@ -138,7 +138,7 @@ class Mnist_CNN:
         :param save_path: should contain the last '/' for the next file name!
         :return:
         """
-        adv_imgs = tf.palceholder(tf.float32,shape=(None,28,28,1))
+        adv_imgs = tf.placeholder(tf.float32,shape=(None,28,28,1))
         self.labels_adv = tf.placeholder(tf.int32,shape=(10,))
         logit_test,_ = cnn_model_explicit(adv_imgs,train_mode = False)
         adv_loss = tf.nn.softmax_cross_entropy_with_logits(logits=logit_test,
