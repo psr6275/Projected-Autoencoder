@@ -1,6 +1,7 @@
 from keras.utils import np_utils, plot_model
 import tensorflow as tf
 import numpy as np
+from sklearn.model_selection import train_test_split as tts
 
 def corrupt(x,scale=0.5, rep =1, noise_type = 'gaussian'):
     x_rep = np.repeat(x,rep,axis=0)
