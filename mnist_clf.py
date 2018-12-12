@@ -145,7 +145,7 @@ class Mnist_CNN:
                 labels = self.labels_adv)
         grad = tf.gradients(adv_loss,adv_imgs)
 
-        self.advX = np.copy(Xtest).astype('float32')
+        self.advX = np.copy(testX).astype('float32')
         yte = np.argmax(Y_test,axis=1)
         yte_adv = (yte+np.random.randint(low=1,hugh=9,size=(Y_test.shape[0],)))%10
         self.advY = np_utils.to_categorical(yte_adv)
