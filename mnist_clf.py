@@ -152,7 +152,7 @@ class Mnist_CNN:
         adv_list = []
 
         for i in range(len(testY)):
-            tmp = np.expand_dims(advX[i],0)
+            tmp = np.expand_dims(self.advX[i],0)
             lower = np.clip(tmp-eps,0,1)
             upper = np.clip(tmp+eps,0,1)
 
