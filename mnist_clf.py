@@ -161,6 +161,8 @@ class Mnist_CNN:
                 tmp = tmp - alpha*np.sign(g[0])
                 tmp = np.clip(tmp,lower,upper)
             adv_list.append(list(tmp[0]))
+            if i%100 ==0:
+                print("[{}/{}] processed".format(i,len(testY)))
 
         self.advX = np.array(adv_list)
         if save_path is not None:
