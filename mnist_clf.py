@@ -146,12 +146,12 @@ class Mnist_CNN:
         grad = tf.gradients(adv_loss,adv_imgs)
 
         self.advX = np.copy(testX).astype('float32')
-        yte = np.argmax(Y_test,axis=1)
-        yte_adv = (yte+np.random.randint(low=1,hugh=9,size=(Y_test.shape[0],)))%10
+        yte = np.argmax(testY,axis=1)
+        yte_adv = (yte+np.random.randint(low=1,hugh=9,size=(testY.shape[0],)))%10
         self.advY = np_utils.to_categorical(yte_adv)
         adv_list = []
 
-        for i in range(len(Y_test)):
+        for i in range(len(testY)):
             tmp = np.expand_dims(advX[i],0)
             lower = np.clip(tmp-eps,0,1)
             upper = np.clip(tmp+eps,0,1)
