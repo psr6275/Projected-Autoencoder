@@ -5,6 +5,7 @@ from keras.utils import np_utils, plot_model
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, Conv2D
 from keras import backend as K
 from keras.losses import categorical_hinge, categorical_crossentropy
+import numpy as np
 
 def corrupt(x,scale=0.5, rep =1, noise_type = 'gaussian'):
     x_rep = np.repeat(x,rep,axis=0)
