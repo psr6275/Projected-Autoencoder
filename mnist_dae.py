@@ -29,7 +29,7 @@ def mnist_dae(dims = [784,1024,2048]):
             decoder (encoder part of dae model)
             autoencoder (reconstruction function of dae model)
     """
-    input_img = Input(shape = (dimx[0],))
+    input_img = Input(shape = (dims[0],))
     encoded = input_img
     for idx, dim in enumerate(dims[1:]):
         encoded = Dense(dim, activation='elu')(encoded)
