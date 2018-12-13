@@ -3,19 +3,7 @@ import tensorflow as tf
 import numpy as np
 from sklearn.model_selection import train_test_split as tts
 
-def corrupt(x,scale=0.5, rep =1, noise_type = 'gaussian'):
-    x_rep = np.repeat(x,rep,axis=0)
-    if noise_type == 'gaussian':
-        noise = np.random.normal(size = x_rep.shape)
-        x_crr = x_rep+scale*noise
-    elif noise_type =='corruption':
-        noise = np.random.binomial(1,1-scale,size = x_rep.shape)
-        x_crr = x_rep * noise
-    elif noise_type =='peppSalt':
-        noise = np.random.choice([-1,0,1],size = x_rep.shape,
-                                   p = [scale/2,1-scale,scale/2])
-        x_crr = x_rep + noise
-    return np.clip(x_rep,0.0,1.0), np.clip(x_crr,0.0,1.0)
+
 
 def cnn_model_explicit(x,train_mode = True):
         
@@ -64,7 +52,8 @@ class Next_Batch:
 
 
 class Mnist_CNN:
-    def __init__(self, trainX, trainY, num_batch=128, num_epoch=10, lr=1e-3, val_ratio=0.3):
+    def __init__(self, trainX, trainY, num_batch=128, num_epoch=10, lr=1e-3, val_ratio=0.3,
+                 log_path = '../logs/',save_path = '../data/'):
         self.trainX = trainX
         self.trainY = trainY
         self.val_ratio = val_ratio
@@ -75,6 +64,10 @@ class Mnist_CNN:
         self.build_model()
         self.sess = tf.Session()
         self.saver = tf.train.Saver()
+        #if log_path is not None:
+        self.log_path = log_path
+        #if save_path is not None:
+        self.save_path = save_path
 
     def build_model(self):
         self.input_imgs = tf.placeholder(tf.float32, shape=(None, 28, 28, 1))
@@ -92,7 +85,7 @@ class Mnist_CNN:
             correct_prediction = tf.equal(tf.argmax(self.y_eval, 1), tf.argmax(self.labels_eval, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
-    def train(self, save_path="../logs/mnist_CNN_clf.ckpt"):
+    def train(self, ckpt_name="mnistF_CNN_clf.ckpt"):
         Xtr, Xval, Ytr, Yval = tts(self.trainX, self.trainY, test_size=self.val_ratio)
         self.sess.run(tf.global_variables_initializer())
         self.batch_gen = Next_Batch(int(self.num_data * self.val_ratio), self.num_batch)
@@ -110,7 +103,7 @@ class Mnist_CNN:
                 val_acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval, self.labels_eval: Yval})
                 print("[{}/{}] Loss: {:.6f} Train_Acc: {:.4f} Val_Acc: {:.4f}". \
                       format(i, num_iter, train_loss, train_acc, val_acc))
-        self.save_path = self.saver.save(self.sess, save_path)
+        self.save_path = self.saver.save(self.sess, self.log_path+ckpt_name)
         print("saved path: ", self.save_path)
 
     def predict(self, testX):
@@ -127,7 +120,7 @@ class Mnist_CNN:
         else:
             self.saver.restore(self.sess, ckpt_path)
             print("Success!")
-    def targeted_attack(self,testX,testY,alpha = 0.1,max_iter=20,eps=32./255.,save_path = None):
+    def targeted_attack(self,testX,testY,alpha = 0.1,max_iter=20,eps=32./255.,file_name = None):
         """
 
         :param testX: we want to bother
@@ -165,5 +158,9 @@ class Mnist_CNN:
                 print("[{}/{}] processed".format(i,len(testY)))
 
         self.advX = np.array(adv_list)
-        if save_path is not None:
-            np.save(save_path+'mnist_advX_%d_%d_%d'%(i,yte,yte_adv[i]))
+        if file_name is not None:
+            np.save(self.save_path+'mnistF_advX',advX)
+
+    def save_np(self,np_array,file_name):
+        np.save(self.save_path+file_name,np_array)
+        print("Save: ",self.save_path+file_name)
