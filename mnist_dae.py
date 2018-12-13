@@ -2,7 +2,7 @@ from keras.layers import Input, Dense,Dropout, Flatten, Lambda
 from keras.models import Model, Sequential
 from sklearn.model_selection import train_test_split as tts
 from keras.utils import np_utils, plot_model
-from keras.layers.convolutional import COnvoultion2D, MaxPooling2D, Conv2D
+from keras.layers.convolutional import Convoultion2D, MaxPooling2D, Conv2D
 from keras import backend as K
 from keras.losses import categorical_hinge, categorical_crossentropy
 
