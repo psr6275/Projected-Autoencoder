@@ -41,11 +41,11 @@ def mnist_dae(dims = [784,1024,2048]):
             decoded = Dense(dim,activation='elu')(decoded)
         else:
             decoded = Dense(dim,activation='sigmoid')(decoded)
-    encoder = Model(nput_img,encoded)
+    encoder = Model(input_img,encoded)
     autoencoder = Model(input_img,decoded)
     input_z = Input(shape=(dims[-1],))
     decoder_layers = autoencoder.layers[len(dims):]
-    z_encoded = input_z
+    z_decoded = input_z
     for lyr in decoder_layers:
         z_decoded = lyr(z_decoded)
     decoder = Model(input_z,z_decoded)

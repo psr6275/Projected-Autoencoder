@@ -159,7 +159,7 @@ class Mnist_CNN:
 
         self.advX = np.array(adv_list)
         if file_name is not None:
-            np.save(self.save_path+file_name,advX)
+            np.save(self.save_path+file_name,self.advX)
 
     def save_np(self,np_array,file_name):
         np.save(self.save_path+file_name,np_array)
