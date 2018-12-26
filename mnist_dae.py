@@ -6,6 +6,7 @@ from keras.layers.convolutional import Convolution2D, MaxPooling2D, Conv2D
 from keras import backend as K
 from keras.losses import categorical_hinge, categorical_crossentropy
 import numpy as np
+from mnist_ds import *
 
 def corrupt(x,scale=0.5, rep =1, noise_type = 'gaussian'):
     x_rep = np.repeat(x,rep,axis=0)
@@ -50,3 +51,62 @@ def mnist_dae(dims = [784,1024,2048]):
         z_decoded = lyr(z_decoded)
     decoder = Model(input_z,z_decoded)
     return encoder, decoder, autoencoder
+
+class Mnist_DAE:
+    def __init__(self,trainX,trainY,dims = [784,1024,2048],num_batch = 128,test_size = 0.3,noise_type = 'Gaussian',noise_scale = 0.3,epoch=30):
+        self.data = trainX
+        if trainY is not None:
+            self.dataY = trainY
+        self.dims = dims
+        self.num_batch = num_batch
+        self.test_size = test_size
+        self.noise_type = noise_type
+        self.noise_scale = noise_scale
+        self.epoch = epoch
+        self.build_dae()
+
+    def build_dae(self):
+        self.encoder, self.decoder, self.autoencoder = mnist_dae(self.dims)
+    def train_dae(self):
+        self.trainX, self.trainXn = corrupt(self.data,noise_type = self.noise_type,scale = self.noise_scale)
+        self.idxs = np.range(len(self.data))
+        np.random.shuffle(self.idxs)
+        val_num = int(len(self.idxs)*self.test_size)
+        xtr_o = self.trainX[self.idxs[val_num:]]
+        xtr_n = self.trainXn[self.idxs[val_num:]]
+        xval_o = self.trainX[self.idxs[:val_num]]
+        xval_n = self.trainXn[self.idxs[:val_num]]
+
+        print("train the DAE model with noise", self.noise_type, " (", self.noise_scale, ")")
+        self.autoencoder.fit(xtr_n,xtr_o,epochs = self.epoch,batch_size = self.num_batch,
+                             shuffle = True,validation_data = (xval_n,xval_o),
+                             callbacks =[TensorBoard(log_dir = '../logs/mnist_denseDAE',
+                                                     histogram_freq=0, write_graph=False)])
+    def plot_imgs(self,testX,noise_type = 'PeppSalt',noise_scale = 0.3):
+        xtest_o, xtest_n = corrupt(testX,scale = noise_scale,noise_type = noise_type)
+        decoded_imgs = self.autoencoder.predict(xtest_n)
+        n = 10
+        plt.figure(figsize=(20, 4))
+        for i in range(n):
+            # Display Original
+            ax = plt.subplot(2, n, i + 1)
+            plt.imshow(xtest_n[i].reshape(28, 28))
+            plt.gray()
+            ax.get_xaxis().set_visible(False)
+            ax.get_yaxis().set_visible(False)
+
+            # Display Reconstruction
+            ax = plt.subplot(2, n, i + 1 + n)
+            plt.imshow(decoded_imgs[i].reshape(28, 28))
+            plt.gray()
+            ax.get_xaxis().set_visible(False)
+            ax.get_yaxis().set_visible(False)
+
+        plt.show()
+
+    ## dynamical system using the trained DAE model
+    def apply_DS(self,testX,max_iter):
+        for i in range(len(testX)):
+            projection_DS(self.autoencoder,testX[i].reshape(-1,784),max_iter = max_iter)
+
+
