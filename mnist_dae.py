@@ -106,10 +106,13 @@ class Mnist_DAE:
         plt.show()
 
     ## dynamical system using the trained DAE model
-    def apply_DS(self, testX, max_iter=30):
-        projX = np.zeros(testX.shape)
-        for i in range(len(testX)):
-            projX[i] = projection_DS(self.autoencoder, testX[i].reshape(-1, 784), max_iter = max_iter)
+    def apply_DS(self, testX, vr=0.9, max_iter=30):
+        revX = self.autoencoder.predict(testX)
+        projX = vr*testX + (1-vr)*revX
+        for i in range(max_iter):
+            revX = self.autoencoder.predict(projX)
+            projX = vr*projX +(1-vr)*revX
+
         return projX
 
 
