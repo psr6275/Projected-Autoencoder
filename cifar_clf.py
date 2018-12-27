@@ -276,8 +276,13 @@ class Cifar10_CNN:
             if i % 500 == 0:
                 train_loss, train_acc = self.sess.run([self.loss, self.accuracy], feed_dict= \
                     {self.input_imgs: X_batch, self.labels: Y_batch,
+<<<<<<< HEAD
                      self.eval_imgs: X_batch, self.labels_eval: Y_batch})
                 val_acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval, self.labels_eval: Yval})
+=======
+                     self.eval_imgs: Xtr, self.labels_eval: Ytr})
+                val_acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval[batch_idxs], self.labels_eval: Yval[batch_idxs]})
+>>>>>>> 297912baf936e3f498b5243c4dfb2fe10280c7c9
                 print("[{}/{}] Loss: {:.6f} Train_Acc: {:.4f} Val_Acc: {:.4f}". \
                       format(i, num_iter, train_loss, train_acc, val_acc))
         self.save_path = self.saver.save(self.sess, self.log_path + ckpt_name)
