@@ -1,12 +1,13 @@
 from keras.layers import Input, Dense,Dropout, Flatten, Lambda
 from keras.models import Model, Sequential
-from sklearn.model_selection import train_test_split as tts
-from keras.utils import np_utils, plot_model
-from keras.layers.convolutional import Convolution2D, MaxPooling2D, Conv2D
-from keras import backend as K
-from keras.losses import categorical_hinge, categorical_crossentropy
+#from sklearn.model_selection import train_test_split as tts
+#from keras.utils import np_utils, plot_model
+#from keras.layers.convolutional import Convolution2D, MaxPooling2D, Conv2D
+#from keras import backend as K
+#from keras.losses import categorical_hinge, categorical_crossentropy
 import numpy as np
 from mnist_ds import *
+import matplotlib.pyplot as plt
 
 def corrupt(x,scale=0.5, rep =1, noise_type = 'gaussian'):
     x_rep = np.repeat(x,rep,axis=0)
@@ -83,7 +84,7 @@ class Mnist_DAE:
                              callbacks =[TensorBoard(log_dir = '../logs/mnist_denseDAE',
                                                      histogram_freq=0, write_graph=False)])
     def plot_imgs(self,testX,noise_type = 'PeppSalt',noise_scale = 0.3):
-        xtest_o, xtest_n = corrupt(testX,scale = noise_scale,noise_type = noise_type)
+        xtest_o, xtest_n = corrupt(testX, scale = noise_scale, noise_type = noise_type)
         decoded_imgs = self.autoencoder.predict(xtest_n)
         n = 10
         plt.figure(figsize=(20, 4))
@@ -105,8 +106,10 @@ class Mnist_DAE:
         plt.show()
 
     ## dynamical system using the trained DAE model
-    def apply_DS(self,testX,max_iter):
+    def apply_DS(self, testX, max_iter=30):
+        projX = np.zeros(testX.shape)
         for i in range(len(testX)):
-            projection_DS(self.autoencoder,testX[i].reshape(-1,784),max_iter = max_iter)
+            projX[i] = projection_DS(self.autoencoder, testX[i].reshape(-1, 784), max_iter = max_iter)
+        return projX
 
 
