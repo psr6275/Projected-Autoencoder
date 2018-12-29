@@ -277,7 +277,13 @@ class Cifar10_CNN:
                 train_loss, train_acc = self.sess.run([self.loss, self.accuracy], feed_dict= \
                     {self.input_imgs: X_batch, self.labels: Y_batch,
                      self.eval_imgs: X_batch, self.labels_eval: Y_batch})
-                val_acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval[batch_idxs], self.labels_eval: Yval[batch_idxs]})
+                val_acc = 0
+                cv_idxs = np.range(len(batch_idxs))
+                for cv in range(10):
+                    np.shuffle(cv_idxs)
+                    val_acc = val_acc + self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval[cv_idxs[:self.num_batch]], 
+                        self.labels_eval: Yval[cv_idxs[:self.num_batch]]})
+                val_acc = val_acc/10
                 print("[{}/{}] Loss: {:.6f} Train_Acc: {:.4f} Val_Acc: {:.4f}". \
                       format(i, num_iter, train_loss, train_acc, val_acc))
         self.save_path = self.saver.save(self.sess, self.log_path + ckpt_name)
