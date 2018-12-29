@@ -196,7 +196,7 @@ def cnn_model_explicit(x, train_mode=True):
                                 activation=tf.nn.relu)
         dropout1 = tf.layers.dropout(inputs=dense1, rate=0.4,
                                     training=train_mode)
-        dense2 = tf.layers.dense(inputs=dropout1, units=500,
+        dense2 = tf.layers.dense(inputs=dropout1, units=100,
                                 activation=tf.nn.relu)
         dropout2 = tf.layers.dropout(inputs=dense2, rate=0.4,
                                     training=train_mode)
@@ -276,7 +276,7 @@ class Cifar10_CNN:
             if i % 500 == 0:
                 train_loss, train_acc = self.sess.run([self.loss, self.accuracy], feed_dict= \
                     {self.input_imgs: X_batch, self.labels: Y_batch,
-                     self.eval_imgs: Xtr, self.labels_eval: Ytr})
+                     self.eval_imgs: X_batch, self.labels_eval: Y_batch})
                 val_acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval[batch_idxs], self.labels_eval: Yval[batch_idxs]})
                 print("[{}/{}] Loss: {:.6f} Train_Acc: {:.4f} Val_Acc: {:.4f}". \
                       format(i, num_iter, train_loss, train_acc, val_acc))
