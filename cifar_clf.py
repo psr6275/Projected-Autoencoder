@@ -278,7 +278,7 @@ class Cifar10_CNN:
                     {self.input_imgs: X_batch, self.labels: Y_batch,
                      self.eval_imgs: X_batch, self.labels_eval: Y_batch})
                 val_acc = 0
-                cv_idxs = np.range(len(batch_idxs))
+                cv_idxs = np.array(range(len(batch_idxs)))
                 for cv in range(10):
                     np.shuffle(cv_idxs)
                     val_acc = val_acc + self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval[cv_idxs[:self.num_batch]], 
