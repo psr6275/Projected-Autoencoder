@@ -280,7 +280,7 @@ class Cifar10_CNN:
                 val_acc = 0
                 cv_idxs = np.array(range(len(batch_idxs)))
                 for cv in range(10):
-                    np.shuffle(cv_idxs)
+                    np.random.shuffle(cv_idxs)
                     val_acc = val_acc + self.sess.run(self.accuracy, feed_dict={self.eval_imgs: Xval[cv_idxs[:self.num_batch]], 
                         self.labels_eval: Yval[cv_idxs[:self.num_batch]]})
                 val_acc = val_acc/10
@@ -294,7 +294,20 @@ class Cifar10_CNN:
         return y_pred
 
     def accuracy_score(self, testX, testY):
-        acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: testX, self.labels_eval: testY})
+        """
+        skip the last batch in case of too large test dataset
+        """
+        data_num = len(testX)
+        acc = 0
+        if data_num < 128:
+            acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: testX, self.labels_eval: testY})
+        else:
+            # Too many data
+            batch_num = int(data_num/128)
+            for i in range(batch_num):
+                acc = acc + self.sess.run(self.accuracy, feed_dict = {self.eval_imgs:testX[i*128:(i+1)*128],
+                    self.labels_eval:testY[i*128:(i+1)*128]})
+            acc = acc/batch_num
         return acc
 
     def restore(self, ckpt_path=None):
