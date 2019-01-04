@@ -1,5 +1,6 @@
 from keras.layers import Input, Dense,Dropout, Flatten, Lambda
 from keras.models import Model, Sequential
+from keras.callbacks import TensorBoard
 #from sklearn.model_selection import train_test_split as tts
 #from keras.utils import np_utils, plot_model
 #from keras.layers.convolutional import Convolution2D, MaxPooling2D, Conv2D
@@ -54,7 +55,7 @@ def mnist_dae(dims = [784,1024,2048]):
     return encoder, decoder, autoencoder
 
 class Mnist_DAE:
-    def __init__(self,trainX,trainY,dims = [784,1024,2048],num_batch = 128,test_size = 0.3,noise_type = 'Gaussian',noise_scale = 0.3,epoch=30):
+    def __init__(self,trainX,trainY,dims = [784,1024,2048],num_batch = 128,test_size = 0.3,noise_type = 'gaussian',noise_scale = 0.3,epoch=30):
         self.data = trainX
         if trainY is not None:
             self.dataY = trainY
@@ -69,8 +70,9 @@ class Mnist_DAE:
     def build_dae(self):
         self.encoder, self.decoder, self.autoencoder = mnist_dae(self.dims)
     def train_dae(self):
+        self.autoencoder.compile(optimizer = 'adadelta',loss='binary_crossentropy')
         self.trainX, self.trainXn = corrupt(self.data,noise_type = self.noise_type,scale = self.noise_scale)
-        self.idxs = np.range(len(self.data))
+        self.idxs = np.array(range(len(self.data)))
         np.random.shuffle(self.idxs)
         val_num = int(len(self.idxs)*self.test_size)
         xtr_o = self.trainX[self.idxs[val_num:]]
@@ -83,7 +85,7 @@ class Mnist_DAE:
                              shuffle = True,validation_data = (xval_n,xval_o),
                              callbacks =[TensorBoard(log_dir = '../logs/mnist_denseDAE',
                                                      histogram_freq=0, write_graph=False)])
-    def plot_imgs(self,testX,noise_type = 'PeppSalt',noise_scale = 0.3):
+    def plot_imgs(self,testX,noise_type = 'peppSalt',noise_scale = 0.3):
         xtest_o, xtest_n = corrupt(testX, scale = noise_scale, noise_type = noise_type)
         decoded_imgs = self.autoencoder.predict(xtest_n)
         n = 10
