@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef865e37-7c4f-462f-b0bf-c1551462f3d4" name="Default Changelist" comment="should solve marge problem!">
+    <list default="true" id="ef865e37-7c4f-462f-b0bf-c1551462f3d4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cifar_dae.py" beforeDir="false" afterPath="$PROJECT_DIR$/cifar_dae.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter/PAE_main_adv.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter/PAE_main_adv.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter/cifar10_clf.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter/cifar10_clf.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist_dae.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist_dae.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cifar_clf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1522">
+            <state relative-caret-position="-1935">
               <caret line="204" column="28" selection-start-line="204" selection-start-column="28" selection-end-line="204" selection-end-column="28" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
@@ -42,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cifar_dae.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
+            <state relative-caret-position="266">
+              <caret line="92" column="11" selection-start-line="92" selection-start-column="11" selection-end-line="92" selection-end-column="11" />
               <folding>
                 <element signature="e#0#62#0" expanded="true" />
               </folding>
@@ -66,11 +64,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mnist_dae.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1335">
-              <caret line="91" column="34" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#62#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -105,8 +100,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="42" />
-    <option name="y" value="23" />
+    <option name="x" value="276" />
+    <option name="y" value="164" />
     <option name="width" value="1300" />
     <option name="height" value="877" />
   </component>
@@ -254,11 +249,19 @@
       <option name="project" value="LOCAL" />
       <updated>1546348087533</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="revise cifar_dae.py">
+      <created>1546694484049</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1546694484051</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="42" y="23" width="1300" height="877" extended-state="0" />
+    <frame x="276" y="164" width="1300" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22734499" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -271,8 +274,8 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.33863422" weight="0.4611465" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.52225757" visible="true" weight="0.43312103" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="9" sideWeight="0.47774243" side_tool="true" visible="true" weight="0.43312103" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.52225757" visible="true" weight="0.43312103" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.47774243" side_tool="true" visible="true" weight="0.43312103" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -296,7 +299,8 @@
     <MESSAGE value="reduce validation evaluation becuase memory error! in cifar10_clf.py" />
     <MESSAGE value="notebook file!" />
     <MESSAGE value="add cifar_dae.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="add cifar_dae.py" />
+    <MESSAGE value="revise cifar_dae.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="revise cifar_dae.py" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/mnist_clf.py">
@@ -321,17 +325,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mnist_dae.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1335">
-          <caret line="91" column="34" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#62#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="105">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cifar_clf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1522">
+        <state relative-caret-position="-1935">
           <caret line="204" column="28" selection-start-line="204" selection-start-column="28" selection-end-line="204" selection-end-column="28" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
@@ -341,8 +342,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cifar_dae.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
+        <state relative-caret-position="266">
+          <caret line="92" column="11" selection-start-line="92" selection-start-column="11" selection-end-line="92" selection-end-column="11" />
           <folding>
             <element signature="e#0#62#0" expanded="true" />
           </folding>
