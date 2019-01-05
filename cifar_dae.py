@@ -101,7 +101,8 @@ class Cifar_DAE:
         xtr_n = self.trainXn[self.idxs[val_num:]]
         xval_o = self.trainX[self.idxs[:val_num]]
         xval_n = self.trainXn[self.idxs[:val_num]]
-
+        print("loss type is",self.loss_type)
+        print("dae network is", self.dae_type)
         print("train the DAE model with noise", self.noise_type, " (", self.noise_scale, ")")
         self.autoencoder.fit(xtr_n,xtr_o,epochs = self.epoch,batch_size = self.num_batch,
                              shuffle = True,validation_data = (xval_n,xval_o),
