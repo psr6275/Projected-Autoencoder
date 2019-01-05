@@ -40,8 +40,36 @@ def cifar_cdae(filter_nums = [32,64]):
     # no decoder in case of convolution_dae!
     return encoder, autoencoder
 
+def cifar_cdae2(filter_nums = [32,64]):
+    """convolutional dae with undercomplete structure"""
+
+
+    input_img = Input(shape = (32,32,3))
+    encoded = input_img
+    for flt in filter_nums:
+        encoded = Conv2D(flt, (3,3), padding='same')(encoded)
+        encoded = BatchNormalization()(encoded)
+        encoded = Activation('relu')(encoded)
+        encoded = MaxPooling2D((2,2),padding='same')(encoded)
+
+    decoded = encoded
+    for flt in filter_nums[::-1]:
+        decoded = Conv2DTranspose(flt,(3,3),padding='same')(decoded)
+        decoded = BatchNormalization()(decoded)
+        decoded = Activation('relu')(decoded)
+        decoded = UpSampling2D((2,2))(decoded)
+    decoded = Conv2DTranspose(3,(3,3),padding='same')(decoded)
+    decoded = BatchNormalization()(decoded)
+    decoded = Activation('sigmoid')(decoded)
+
+
+    encoder = Model(input_img, encoded)
+    autoencoder = Model(input_img, decoded)
+    # no decoder in case of convolution_dae!
+    return encoder, autoencoder
+
 class Cifar_DAE:
-    def __init__(self,trainX,trainY,filter_nums = [32,64],num_batch = 128,test_size = 0.3,noise_type = 'gaussian',noise_scale = 0.3,epoch=30):
+    def __init__(self,trainX,trainY,filter_nums = [32,64],num_batch = 128,test_size = 0.3,loss_type = "mean_squared_error",noise_type = 'gaussian',noise_scale = 0.3,epoch=30):
         self.data = trainX
         if trainY is not None:
             self.dataY = trainY
@@ -51,12 +79,14 @@ class Cifar_DAE:
         self.noise_type = noise_type
         self.noise_scale = noise_scale
         self.epoch = epoch
+        self.loss_type = loss_type
         self.build_dae()
+
 
     def build_dae(self):
         self.encoder, self.autoencoder = cifar_cdae(self.filter_nums)
     def train_dae(self):
-        self.autoencoder.compile(optimizer = 'adadelta',loss='binary_crossentropy')
+        self.autoencoder.compile(optimizer = 'adadelta',loss=self.loss_type)
         self.trainX, self.trainXn = corrupt(self.data,noise_type = self.noise_type,scale = self.noise_scale)
         self.idxs = np.array(range(len(self.data)))
         np.random.shuffle(self.idxs)
