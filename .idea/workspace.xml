@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef865e37-7c4f-462f-b0bf-c1551462f3d4" name="Default Changelist" comment="should solve marge problem!" />
+    <list default="true" id="ef865e37-7c4f-462f-b0bf-c1551462f3d4" name="Default Changelist" comment="should solve marge problem!">
+      <change beforePath="$PROJECT_DIR$/cifar_dae.py" beforeDir="false" afterPath="$PROJECT_DIR$/cifar_dae.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter/PAE_main_adv.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter/PAE_main_adv.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter/cifar10_clf.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter/cifar10_clf.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist_dae.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist_dae.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cifar_dae.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+            <state relative-caret-position="403">
+              <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
               <folding>
                 <element signature="e#0#62#0" expanded="true" />
               </folding>
@@ -62,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/mnist_dae.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1335">
-              <caret line="89" column="34" selection-start-line="89" selection-start-column="34" selection-end-line="89" selection-end-column="34" />
+              <caret line="91" column="34" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
               <folding>
                 <element signature="e#0#62#0" expanded="true" />
               </folding>
@@ -266,8 +271,8 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.33863422" weight="0.4611465" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.52225757" visible="true" weight="0.43312103" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.47774243" side_tool="true" visible="true" weight="0.43312103" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.52225757" visible="true" weight="0.43312103" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="9" sideWeight="0.47774243" side_tool="true" visible="true" weight="0.43312103" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -317,7 +322,7 @@
     <entry file="file://$PROJECT_DIR$/mnist_dae.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1335">
-          <caret line="89" column="34" selection-start-line="89" selection-start-column="34" selection-end-line="89" selection-end-column="34" />
+          <caret line="91" column="34" selection-start-line="91" selection-start-column="34" selection-end-line="91" selection-end-column="34" />
           <folding>
             <element signature="e#0#62#0" expanded="true" />
           </folding>
@@ -336,8 +341,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cifar_dae.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="403">
+          <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
           <folding>
             <element signature="e#0#62#0" expanded="true" />
           </folding>
