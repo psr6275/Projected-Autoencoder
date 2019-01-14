@@ -5,7 +5,8 @@ from sklearn.model_selection import train_test_split as tts
 from six.moves import xrange
 import os,sys
 from cifar_clf import Next_Batch
-
+import matplotlib.pyplot as plt
+from mnist_dae import corrupt
 
 ##Define DAE network! using TF
 def cifar_cdae_over(x,train_mode = True):
@@ -23,6 +24,16 @@ def cifar_cdae_over(x,train_mode = True):
     variables = tf.contrib.framework.get_variables(vs)
     return out, variables
 
+##Define noised tensor depending on noise_type ( but mainly from gaussian noise)
+def Corrrupt_tensor(x,noise_type = "gaussian",noise_scale=0.1):
+    if noise_type is "gaussian":
+        noise = tf.random.normal(tf.shape(x),stddev=noise_scale)
+    #elif noise_type is "uniform":
+    else:
+        noise = tf.random.uniform(tf.shape(x),maxval=noise_scale)
+    #elif noise_type is "corruption":
+    #    noise = tf.random.
+    return tf.clip_by_value(x+noise,0,1)
 
 
 class Cifar10_DAE:
@@ -62,7 +73,7 @@ class Cifar10_DAE:
 
     def build_model(self):
         self.input_imgs = tf.placeholder(tf.float32,shape=(None,32,32,3))
-        self.noise_imgs = Corrupt_tensor(self.input_imgs)
+        self.noise_imgs = Corrupt_tensor(self.input_imgs,self.noise_type,self.noise_scale)
         self.eval_imgs = tf.placeholder(tf.float32,shape = (None,32,32,3))
 
         if self.dae_type == "over":

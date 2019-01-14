@@ -99,7 +99,8 @@ def cifar_cdae_over(filter_nums = [32,64]):
     return autoencoder
 
 class Cifar_DAE:
-    def __init__(self,trainX,trainY,filter_nums = [32,64],num_batch = 128,test_size = 0.3,dae_type = "over",loss_type = "mean_squared_error",noise_type = 'gaussian',noise_scale = 0.3,epoch=30):
+    def __init__(self,trainX,trainY,filter_nums = [32,64],num_batch = 128,test_size = 0.3,dae_type = "over",
+                 loss_type = "mean_squared_error",noise_type = 'gaussian',noise_scale = 0.3,epoch=30):
         self.data = trainX
         if trainY is not None:
             self.dataY = trainY

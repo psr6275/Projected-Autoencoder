@@ -4,6 +4,7 @@
     <list default="true" id="ef865e37-7c4f-462f-b0bf-c1551462f3d4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cifar_dae.py" beforeDir="false" afterPath="$PROJECT_DIR$/cifar_dae.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cifar_tfdae.py" beforeDir="false" afterPath="$PROJECT_DIR$/cifar_tfdae.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,12 +12,34 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/cifar_tfdae.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="-1427">
+                    <caret line="38" selection-start-line="38" selection-end-line="38" />
+                    <folding>
+                      <element signature="e#0#44#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mnist_clf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2265">
+            <state relative-caret-position="516">
               <caret line="154" column="27" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="27" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
@@ -28,8 +51,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cifar_clf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1355">
-              <caret line="224" column="33" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
+            <state relative-caret-position="2910">
+              <caret line="194" column="62" selection-start-line="194" selection-start-column="62" selection-end-line="194" selection-end-column="62" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -40,8 +63,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cifar_dae.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
+            <state relative-caret-position="247">
+              <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
               <folding>
                 <element signature="e#0#62#0" expanded="true" />
               </folding>
@@ -64,8 +87,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mnist_dae.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+            <state relative-caret-position="300">
+              <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#62#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,13 +122,14 @@
         <option value="$PROJECT_DIR$/mnist_dae.py" />
         <option value="$PROJECT_DIR$/cifar_clf.py" />
         <option value="$PROJECT_DIR$/cifar_dae.py" />
+        <option value="$PROJECT_DIR$/cifar_tfdae.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="358" />
-    <option name="y" value="108" />
-    <option name="width" value="1300" />
+    <option name="x" value="-316" />
+    <option name="y" value="23" />
+    <option name="width" value="1364" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectView">
@@ -263,7 +290,21 @@
       <option name="project" value="LOCAL" />
       <updated>1547448521185</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add rscnn structure to cifar_dae.py">
+      <created>1547449030220</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1547449030220</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add new tensorflow-based cifar10 training code named cifar_tfdae.py">
+      <created>1547455829773</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1547455829773</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView">
@@ -276,10 +317,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="358" y="108" width="1300" height="877" extended-state="0" />
+    <frame x="-316" y="23" width="1364" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22673965" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21593447" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -289,9 +330,9 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49960908" weight="0.3299363" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" sideWeight="0.336982" visible="true" weight="0.24076433" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.33730453" visible="true" weight="0.24076433" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.51993746" weight="0.43312103" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.663018" side_tool="true" visible="true" weight="0.24076433" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.66269547" side_tool="true" visible="true" weight="0.24076433" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49882722" weight="0.3299363" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -317,19 +358,10 @@
     <MESSAGE value="add cifar_dae.py" />
     <MESSAGE value="revise cifar_dae.py" />
     <MESSAGE value="add rscnn structure to cifar_dae.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="add rscnn structure to cifar_dae.py" />
+    <MESSAGE value="add new tensorflow-based cifar10 training code named cifar_tfdae.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="add new tensorflow-based cifar10 training code named cifar_tfdae.py" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mnist_clf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2265">
-          <caret line="154" column="27" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mnist_ds.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -340,27 +372,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mnist_dae.py">
+    <entry file="file://$PROJECT_DIR$/mnist_clf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cifar_clf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1355">
-          <caret line="224" column="33" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
+        <state relative-caret-position="516">
+          <caret line="154" column="27" selection-start-line="154" selection-start-column="27" selection-end-line="154" selection-end-column="27" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cifar_clf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2910">
+          <caret line="194" column="62" selection-start-line="194" selection-start-column="62" selection-end-line="194" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cifar_tfdae.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1427">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mnist_dae.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cifar_dae.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
+        <state relative-caret-position="247">
+          <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
           <folding>
             <element signature="e#0#62#0" expanded="true" />
           </folding>
