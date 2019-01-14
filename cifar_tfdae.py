@@ -37,10 +37,10 @@ def Corrupt_tensor(x,noise_type = "gaussian",noise_scale=0.1):
 
 class Cifar10_DAE:
     def __init__(self,trainX, trainY = None, num_batch = 128,test_size = 0.3,dae_type = "over",
-                 loss_type = "mse",noise_type = "gaussian",noise_scale = 0.1,lr = 0.01,epoch=30,
+                 loss_type = "mse",noise_type = "gaussian",noise_scale = 0.1,lr = 0.01,num_epoch=30,
                  optim_type = "adaDelta",split_num = None,log_path = '../logs/',
                  save_path = '../data/'):
-        self.data = trainX
+        self.dataX = trainX
         self.num_data = len(trainX)
         if trainY is not None:
             self.dataY = trainY
@@ -50,7 +50,7 @@ class Cifar10_DAE:
         self.test_size = test_size
         self.noise_type = noise_type
         self.noise_scale = noise_scale
-        self.epoch = epoch
+        self.num_epoch = num_epoch
         self.loss_type = loss_type
         self.dae_type = dae_type
         self.lr = lr
@@ -84,22 +84,25 @@ class Cifar10_DAE:
 
         ##loss part
         if self.loss_type == "mse":
-            self.loss = tf.reduce_mean(tf.square(self.input_imgs,self.recon))
-            self.loss_eval = tf.reduce_mean(tf.square(self.eval_imgs,self.recon_eval))
+            self.loss = tf.reduce_mean(tf.square(self.input_imgs-self.recon))
+            self.loss_eval = tf.reduce_mean(tf.square(self.eval_imgs-self.recon_eval))
         elif self.loss_type == "bce":
             self.loss = tf.keras.backend.binary_crossentropy(self.input_imgs,self.recon)
             self.loss_eval = tf.keras.backend.binary_crossentropy(self.eval_imgs,self.recon_eval)
+        elif self.loss_type == "l1":
+            self.loss = tf.reduce_mean(tf.abs(self.input_imgs-self.recon))
+            self.loss_eval = tf.reduce_mean(tf.abs(self.eval_imgs-self.recon_eval))
         else:
             print("Error!: You should specify an appropriate loss type.")
 
         ##train variables
         with tf.variable_scope('TrainVar',reuse = tf.AUTO_REUSE):
             if self.optim_type == "rms":
-                self.train_step = tf.train.RMSPropOptimizer(self.lr).minimize(self.loss,self.dae_variables)
+                self.train_step = tf.train.RMSPropOptimizer(self.lr).minimize(self.loss,var_list = self.dae_variables)
             elif self.optim_type == "adam":
-                self.train_step = tf.train.AdamOptimizer().minimize(self.loss,self.dae_variables)
+                self.train_step = tf.train.AdamOptimizer().minimize(self.loss,var_list = self.dae_variables)
             elif self.optim_type == "adaDelta":
-                self.train_step = tf.train.AdadeltaOptimizer().minimize(self.loss,self.dae_variables)
+                self.train_step = tf.train.AdadeltaOptimizer().minimize(self.loss,var_list = self.dae_variables)
 
 
     def train(self,ckpt_name = "cifar10_dae.ckpt"):
@@ -141,7 +144,22 @@ class Cifar10_DAE:
 
         return loss_n,loss_cln
     def predict(self,testX):
-        recon = self.sess.run(self.recon_eval,feed_dict = {self.eval_imgs:testX})
+        data_num = len(testX)
+
+        if data_num < self.split_num:
+            recon = self.sess.run(self.recon_eval,feed_dict = {self.eval_imgs:testX})
+        else:
+            batch_num = np.ceil(data_num/self.split_num)
+            recon = np.zeros(testX.shape)
+            for i in range(batch_num):
+                if i <batch_num-1:
+                    recon[i*self.split_num:(i+1)*self.split_num] = \
+                            self.sess.run(self.recon_eval,feed_dict = {self.eval_imgs:\
+                                                                        testX[i*self.split_num:(i+1)*self.split_num]})
+                else:
+                    recon[i*self.split_num:] = \
+                            self.sess.run(self.recon_eval, feed_dict = {self.eval_eimgs:testX[i*self.split_num:]})
+
         return recon
     def restore(self,ckpt_path = None):
         if ckpt is None:
