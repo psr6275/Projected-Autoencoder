@@ -1,4 +1,4 @@
-from keras.layers import Input, Dense,Dropout, Flatten, Lambda
+from keras.layers import Input, Dense,Dropout, Flatten, Lambda,Layer
 from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, BatchNormalization, Activation, Conv2DTranspose
 from keras.models import Model, Sequential
 from keras.callbacks import TensorBoard
@@ -89,8 +89,8 @@ def cifar_cdae_over(filter_nums = [32,64]):
     input_img = Input(shape = (32,32,3))
     encoded = Conv2D(64,(9,9),padding = 'same', activation = 'relu')(input_img)
     encoded = Conv2D(32,(1,1),padding = 'same',activation ='relu')(encoded)
-    encoded = Conv2D(3,(5,5),padding = 'same',activation = 'linear')(encoded)
-    encoded = K.clip(encoded,0,1)
+    encoded = Conv2D(3,(5,5),padding = 'same',activation = 'sigmoid')(encoded)
+    #encoded = K.clip(encoded,0,1)
     #])
 
     #encoder = Model(input_img, encoded)
