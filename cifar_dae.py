@@ -5,7 +5,7 @@ from keras.callbacks import TensorBoard
 #from sklearn.model_selection import train_test_split as tts
 #from keras.utils import np_utils, plot_model
 #from keras.layers.convolutional import Convolution2D, MaxPooling2D, Conv2D
-#from keras import backend as K
+from keras import backend as K
 #from keras.losses import categorical_hinge, categorical_crossentropy
 import numpy as np
 from mnist_ds import *
@@ -65,6 +65,8 @@ def cifar_cdae_over(filter_nums = [32,64]):
     decoded = BatchNormalization()(decoded)
     decoded = Activation('sigmoid')(decoded)
     """
+    """
+    ##lsy
     autoencoder = Sequential([
     Conv2DTranspose(2,(5,5),strides=2,padding='valid',input_shape=(32,32,3)),
     Conv2DTranspose(1,(5,5), strides =2, padding='valid'),
@@ -80,11 +82,19 @@ def cifar_cdae_over(filter_nums = [32,64]):
     BatchNormalization(),
     MaxPooling2D((2,2)),
     Activation('sigmoid')
-
-
         ])
+    """
+    ## srcnn (super-resolution)
+    #autoencoder = Sequential([
+    input_img = Input(shape = (32,32,3))
+    encoded = Conv2D(64,(9,9),padding = 'same', activation = 'relu')(input_img)
+    encoded = Conv2D(32,(1,1),padding = 'same',activation ='relu')(encoded)
+    encoded = Conv2D(3,(5,5),padding = 'same',activation = 'linear')(encoded)
+    encoded = K.clip(encoded,0,1)
+    #])
+
     #encoder = Model(input_img, encoded)
-    #autoencoder = Model(input_img, decoded)
+    autoencoder = Model(input_img, encoded)
     # no decoder in case of convolution_dae!
     return autoencoder
 
