@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef865e37-7c4f-462f-b0bf-c1551462f3d4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cifar_dae.py" beforeDir="false" afterPath="$PROJECT_DIR$/cifar_dae.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cifar_tfdae.py" beforeDir="false" afterPath="$PROJECT_DIR$/cifar_tfdae.py" afterDir="false" />
-    </list>
+    <list default="true" id="ef865e37-7c4f-462f-b0bf-c1551462f3d4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +16,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/cifar_tfdae.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-1427">
-                    <caret line="38" selection-start-line="38" selection-end-line="38" />
+                  <state relative-caret-position="414">
+                    <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
                     <folding>
                       <element signature="e#0#44#0" expanded="true" />
                     </folding>
@@ -304,7 +300,21 @@
       <option name="project" value="LOCAL" />
       <updated>1547455829773</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="add new tensorflow-based cifar10 training code named cifar_tfdae.py">
+      <created>1547475903147</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1547475903147</updated>
+    </task>
+    <task id="LOCAL-00020" summary="function name revise (Corrrupt -&gt; Corrupt)">
+      <created>1547476127299</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1547476127299</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView">
@@ -318,7 +328,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-316" y="23" width="1364" height="877" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21593447" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -359,7 +368,8 @@
     <MESSAGE value="revise cifar_dae.py" />
     <MESSAGE value="add rscnn structure to cifar_dae.py" />
     <MESSAGE value="add new tensorflow-based cifar10 training code named cifar_tfdae.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new tensorflow-based cifar10 training code named cifar_tfdae.py" />
+    <MESSAGE value="function name revise (Corrrupt -&gt; Corrupt)" />
+    <option name="LAST_COMMIT_MESSAGE" value="function name revise (Corrrupt -&gt; Corrupt)" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/mnist_ds.py">
@@ -392,16 +402,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cifar_tfdae.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1427">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mnist_dae.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -418,6 +418,16 @@
           <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
           <folding>
             <element signature="e#0#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cifar_tfdae.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>

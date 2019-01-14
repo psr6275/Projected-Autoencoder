@@ -27,10 +27,10 @@ def cifar_cdae_over(x,train_mode = True):
 ##Define noised tensor depending on noise_type ( but mainly from gaussian noise)
 def Corrupt_tensor(x,noise_type = "gaussian",noise_scale=0.1):
     if noise_type is "gaussian":
-        noise = tf.random.normal(tf.shape(x),stddev=noise_scale)
+        noise = tf.random_normal(tf.shape(x),stddev=noise_scale)
     #elif noise_type is "uniform":
     else:
-        noise = tf.random.uniform(tf.shape(x),maxval=noise_scale)
+        noise = tf.random_uniform(tf.shape(x),maxval=noise_scale)
     #elif noise_type is "corruption":
     #    noise = tf.random.
     return tf.clip_by_value(x+noise,0,1)
