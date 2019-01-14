@@ -44,10 +44,11 @@ def cifar_cdae_over(filter_nums = [32,64]):
     """convolutional dae with undercomplete structure"""
 
 
-    input_img = Input(shape = (32,32,3))
-    encoded = input_img
+    #input_img = Input(shape = (32,32,3))
+    #encoded = input_img
+    """
     for flt in filter_nums:
-        encoded = Conv2DTranspose(flt, (3,3), padding='same')(encoded)
+        encoded = Conv2DTranspose(flt, (3,3), strides = 2,padding='valid')(encoded)
         encoded = BatchNormalization()(encoded)
         encoded = Activation('relu')(encoded)
         encoded = UpSampling2D((2,2))(encoded)
@@ -63,12 +64,29 @@ def cifar_cdae_over(filter_nums = [32,64]):
     decoded = Conv2D(3,(3,3),padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('sigmoid')(decoded)
+    """
+    autoencoder = Sequential([
+    Conv2DTranspose(2,(5,5),strides=2,padding='valid',input_shape=(32,32,3)),
+    Conv2DTranspose(1,(5,5), strides =2, padding='valid'),
+    BatchNormalization(),
+    Activation('relu'),
+
+    Conv2D(2,(4,4),padding='valid'),
+    BatchNormalization(),
+    MaxPooling2D((2,2)),
+    Activation('relu'),
+
+    Conv2D(3,(4,4),padding='valid'),
+    BatchNormalization(),
+    MaxPooling2D((2,2)),
+    Activation('sigmoid')
 
 
-    encoder = Model(input_img, encoded)
-    autoencoder = Model(input_img, decoded)
+        ])
+    #encoder = Model(input_img, encoded)
+    #autoencoder = Model(input_img, decoded)
     # no decoder in case of convolution_dae!
-    return encoder, autoencoder
+    return autoencoder
 
 class Cifar_DAE:
     def __init__(self,trainX,trainY,filter_nums = [32,64],num_batch = 128,test_size = 0.3,dae_type = "over",loss_type = "mean_squared_error",noise_type = 'gaussian',noise_scale = 0.3,epoch=30):
@@ -88,7 +106,7 @@ class Cifar_DAE:
 
     def build_dae(self):
         if self.dae_type == "over":
-            self.encoder,self.autoencoder = cifar_cdae_over()
+            self.autoencoder = cifar_cdae_over()
         else:
             self.encoder, self.autoencoder = cifar_cdae(self.filter_nums)
     def train_dae(self):
