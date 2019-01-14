@@ -13,13 +13,12 @@ def cifar_cdae_over(x,train_mode = True):
     with tf.variable_scope("DAE",reuse=tf.AUTO_REUSE) as vs:
         conv1 = tf.layers.conv2d(inputs = x, filters = 64,
                                  kernel_size = [9,9], padding = 'same',
-                                 activation = 'relu')
+                                 activation = tf.nn.relu)
         conv2 = tf.layers.conv2d(inputs = conv1, filters = 32,
                                  kernel_size = [1,1], padding = 'same',
-                                 activation = 'relu')
+                                 activation = tf.nn.relu)
         conv3 = tf.layers.conv2d(inputs = conv2,filters = 3,
-                                 kernel_size = [5,5],padding = 'same',
-                                 activation = 'linear')
+                                 kernel_size = [5,5],padding = 'same')
         out = tf.clip_by_value(conv3,0,1)
     variables = tf.contrib.framework.get_variables(vs)
     return out, variables
