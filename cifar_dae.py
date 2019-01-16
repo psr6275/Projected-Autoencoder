@@ -137,6 +137,8 @@ class Cifar_DAE:
                              shuffle = True,validation_data = (xval_n,xval_o),
                              callbacks =[TensorBoard(log_dir = '../logs/mnist_denseDAE',
                                                      histogram_freq=0, write_graph=False)])
+    def predict(self, testx):
+        return self.autoencoder.predict(testx)
     def plot_imgs(self,testX,noise_type = 'peppSalt',noise_scale = 0.3):
         xtest_o, xtest_n = corrupt(testX, scale = noise_scale, noise_type = noise_type)
         decoded_imgs = self.autoencoder.predict(xtest_n)

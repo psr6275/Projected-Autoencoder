@@ -105,7 +105,7 @@ class Cifar10_DAE:
                 self.train_step = tf.train.AdadeltaOptimizer().minimize(self.loss,var_list = self.dae_variables)
 
 
-    def train(self,ckpt_name = "cifar10_dae.ckpt"):
+    def train(self,ckpt_name = "cifar10_dae.ckpt",num_viz = False):
         Xtr, Xval, Ytr, Yval = tts(self.dataX,self.dataY,test_size = self.test_size)
         self.sess.run(tf.global_variables_initializer())
         self.batch_gen = Next_Batch(len(Ytr),self.num_batch)
@@ -121,6 +121,29 @@ class Cifar10_DAE:
 
                 print("[{}/{}] (Loss) Train_n: {:.6f} Train_cln: {:.6f} Val_n: {:.6f} Val_cln: {:.6f}".\
                       format(i,num_iter,train_loss,train_loss_cln, val_loss, val_loss_cln))
+                if num_viz:
+                    nviz_imgs,rnviz_imgs,rcviz_imgs = self.sess.run([self.noise_imgs,self.recon,self.recon_eval],feed_dict={self.input_imgs:Xval[:num_viz],\
+                            self.eval_imgs:Xval[:num_viz]})
+                    for vi in range(num_viz):
+                        ax = plt.subplot(num_viz,4,4*vi+1)
+                        plt.imshow(Xval[vi])
+                        ax.get_xaxis().set_visible(False)
+                        ax.get_yaxis().set_visible(False)
+                        ax = plt.subplot(num_viz,4,4*vi+2)
+                        plt.imshow(nviz_imgs[vi])
+                        ax.get_xaxis().set_visible(False)
+                        ax.get_yaxis().set_visible(False)
+                        ax = plt.subplot(num_viz,4,4*vi+3)
+                        plt.imshow(rcviz_imgs[vi])
+                        ax.get_xaxis().set_visible(False)
+                        ax.get_yaxis().set_visible(False)
+                        ax = plt.subplot(num_viz,4,4*vi+4)
+                        plt.imshow(rnviz_imgs[vi])
+                        ax.get_xaxis().set_visible(False)
+                        ax.get_yaxis().set_visible(False)
+                    plt.show()
+
+
         self.save_path = self.saver.save(self.sess,self.log_path+ckpt_name)
         print("saved path: ",self.save_path)
     def loss_score(self,input_tensor):
@@ -162,7 +185,7 @@ class Cifar10_DAE:
 
         return recon
     def restore(self,ckpt_path = None):
-        if ckpt is None:
+        if ckpt_path is None:
             print("Please, specify the path of checkpoint")
         else:
             self.saver.restore(self.sess,ckpt_path)

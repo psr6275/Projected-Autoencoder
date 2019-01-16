@@ -230,7 +230,7 @@ class Next_Batch:
 
 class Cifar10_CNN:
     def __init__(self, trainX, trainY, num_batch=128, num_epoch=10, lr=1e-3, val_ratio=0.3,
-                 log_path='../logs/', save_path='../data/'):
+                 split_num = None, log_path='../logs/', save_path='../data/'):
         self.trainX = trainX
         self.trainY = trainY
         self.val_ratio = val_ratio
@@ -238,6 +238,10 @@ class Cifar10_CNN:
         self.num_batch = num_batch
         self.num_epoch = num_epoch
         self.lr = lr
+        if split_num is not None:
+            self.split_num = split_num
+        else:
+            self.split_num = 2*num_batch
         self.build_model()
         self.sess = tf.Session()
         self.saver = tf.train.Saver()
@@ -290,7 +294,19 @@ class Cifar10_CNN:
         print("saved path: ", self.save_path)
 
     def predict(self, testX):
-        y_pred = self.sess.run(self.y_eval, feed_dict={self.eval_imgs: testX})
+        data_num = len(testX)
+        if data_num<self.split_num:
+            y_pred = self.sess.run(self.y_eval, feed_dict={self.eval_imgs: testX})
+        else:
+            batch_num = np.ceil(data_num/self.split_num)
+            y_pred = np.zeros((data_num,)) 
+            for i in range(batch_num):
+                if i<batch_num-1:
+                    y_pred[i*self.split_num:(i+1)*self.split_num] =\
+                            self.sess.run(self.y_eval,feed_dict={self.eval_imgs:testX[i*self.split_num:(i+1)*self.split_num]})
+                else:
+                    y_pred[i*self.split_num:] = self.sess.run(self.y_eval, feed_dict = {self.eval_imgs:testX[i*self.split_num:]})
+                    
         return y_pred
 
     def accuracy_score(self, testX, testY):
@@ -299,15 +315,15 @@ class Cifar10_CNN:
         """
         data_num = len(testX)
         acc = 0
-        if data_num < 128:
+        if data_num < self.split_num:
             acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: testX, self.labels_eval: testY})
         else:
             # Too many data
-            batch_num = int(data_num/128)
+            batch_num = int(data_num/self.split_num)
             for i in range(batch_num):
-                acc = acc + self.sess.run(self.accuracy, feed_dict = {self.eval_imgs:testX[i*128:(i+1)*128],
-                    self.labels_eval:testY[i*128:(i+1)*128]})
-            acc = acc/batch_num
+                acc = acc + self.sess.run(self.accuracy, feed_dict = {self.eval_imgs:testX[i*self.split_num:(i+1)*self.split_num],
+                    self.labels_eval:testY[i*self.split_num:(i+1)*self.split_num]})
+            acc /= batch_num
         return acc
 
     def restore(self, ckpt_path=None):
