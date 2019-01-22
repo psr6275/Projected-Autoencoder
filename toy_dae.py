@@ -6,15 +6,26 @@ from keras import backend as K
 import numpy as np
 from mnist_ds import *
 import matplotlib.pyplot as plt
-from mnist_dae import corrupt
+#from mnist_dae import corrupt
 
+def corrupt_toy(x,scale = 0.3,rep = 1,noise_type = "gaussian"):
+    x_rep = np.repeat(x,rep,axis=0)
+    if noise_type =='gaussian':
+        noise = np.random.normal(size=x_rep.shape)
+        x_crr = x_rep+scale*noise
+    elif noise_type == 'uniform':
+        noise = np.random.uniform(-1,1,size = x_rep.shape)
+        x_crr = x_rep+scale*noise
+    else:
+        print("you sould select noise_type in [gaussian,uniform]")
+    return x_rep, x_crr
 def toy_dae(input_dim = (3,),dims = [100]):
     input_ex = Input(shape = input_dim)
     encoded = input_ex
     for idx, dim in enumerate(dims):
         encoded = Dense(dim,activation='elu')(encoded)
     decoded = encoded
-    for idx, dim in enumerate(dims[:-1]):
+    for idx, dim in enumerate(dims[::-1]):
         if idx<len(dims)-1:
             decoded = Dense(dim,activation='elu')(decoded)
         else:
@@ -23,22 +34,24 @@ def toy_dae(input_dim = (3,),dims = [100]):
     encoder = Model(input_ex,encoded)
     autoencoder = Model(input_ex,decoded)
     input_z = Input(shape=(dims[-1],))
-    decoder_layers = autoencoder.layers[len(dims):]
+    decoder_layers = autoencoder.layers[len(dims)+1:]
     z_decoded = input_z
     for lyr in decoder_layers:
         z_decoded = lyr(z_decoded)
     decoder = Model(input_z,z_decoded)
+    print(autoencoder.summary())
     return encoder, decoder, autoencoder
 
 class Toy_DAE:
-    def __init__(self,trainX,dims=[100],num_batch = 128,test_ize=0.3,loss_type = "mean_squared_error",
-                 noise_scale=0.3,epoch=30):
+    def __init__(self,trainX,dims=[100],num_batch = 128,test_size=0.3,loss_type = "mean_squared_error",
+                 noise_type = "gaussian",noise_scale=0.3,noise_rep = 3,epoch=30):
         self.data = trainX
         self.dims = dims
         self.num_batch = num_batch
         self.test_size = test_size
         self.noise_type = noise_type
         self.noise_scale = noise_scale
+        self.noise_rep = noise_rep
         self.epoch = epoch
         self.loss_type = loss_type
         self.build_dae()
@@ -49,7 +62,7 @@ class Toy_DAE:
 
     def train_dae(self):
         self.autoencoder.compile(optimizer = 'adadelta',loss = self.loss_type)
-        self.trainX, self.trainXn = corrupt(self.data,noise_type = self.noise_type,scale = self.noise_scale)
+        self.trainX, self.trainXn = corrupt_toy(self.data,noise_type = self.noise_type,rep = self.noise_rep,scale = self.noise_scale)
         self.idxs = np.array(range(len(self.data)))
         val_num = int(len(self.idxs)*self.test_size)
         xtr_o = self.trainX[self.idxs[val_num:]]
