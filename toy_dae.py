@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 def corrupt_toy(x,scale = 0.3,rep = 1,noise_type = "gaussian"):
     x_rep = np.repeat(x,rep,axis=0)
     if noise_type =='gaussian':
-        noise = np.random.normal(size=x_rep.shape)
-        x_crr = x_rep+scale*noise
+        noise = np.random.normal(0,scale = scale,size=x_rep.shape)
+        x_crr = x_rep+noise
     elif noise_type == 'uniform':
-        noise = np.random.uniform(-1,1,size = x_rep.shape)
-        x_crr = x_rep+scale*noise
+        noise = np.random.uniform(-scale,scale,size = x_rep.shape)
+        x_crr = x_rep+noise
     else:
         print("you sould select noise_type in [gaussian,uniform]")
     return x_rep, x_crr
@@ -23,13 +23,13 @@ def toy_dae(input_dim = (3,),dims = [100]):
     input_ex = Input(shape = input_dim)
     encoded = input_ex
     for idx, dim in enumerate(dims):
-        encoded = Dense(dim,activation='elu')(encoded)
+        encoded = Dense(dim,activation='relu',kernel_initializer = 'glorot_normal')(encoded)
     decoded = encoded
     for idx, dim in enumerate(dims[::-1]):
         if idx<len(dims)-1:
-            decoded = Dense(dim,activation='elu')(decoded)
+            decoded = Dense(dim,activation='relu',kernel_initializer='glorot_normal')(decoded)
         else:
-            decoded = Dense(input_dim[0],activation='linear')(decoded)
+            decoded = Dense(input_dim[0],activation='linear',kernel_initializer='glorot_normal')(decoded)
 
     encoder = Model(input_ex,encoded)
     autoencoder = Model(input_ex,decoded)
@@ -61,7 +61,7 @@ class Toy_DAE:
         self.encoder, self.decoder, self.autoencoder = toy_dae(self.input_dim,self.dims)
 
     def train_dae(self):
-        self.autoencoder.compile(optimizer = 'adadelta',loss = self.loss_type)
+        self.autoencoder.compile(optimizer = 'nadam',loss = self.loss_type)
         self.trainX, self.trainXn = corrupt_toy(self.data,noise_type = self.noise_type,rep = self.noise_rep,scale = self.noise_scale)
         self.idxs = np.array(range(len(self.data)))
         val_num = int(len(self.idxs)*self.test_size)
