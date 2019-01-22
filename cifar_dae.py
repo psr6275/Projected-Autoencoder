@@ -98,6 +98,10 @@ def cifar_cdae_over(filter_nums = [32,64]):
     # no decoder in case of convolution_dae!
     return autoencoder
 
+def cifar_dense(dims = [1024, 2048,1024]):
+    input_img = Input(shape=(1024,3))
+
+
 class Cifar_DAE:
     def __init__(self,trainX,trainY,filter_nums = [32,64],num_batch = 128,test_size = 0.3,dae_type = "over",
                  loss_type = "mean_squared_error",noise_type = 'gaussian',noise_scale = 0.3,epoch=30):
