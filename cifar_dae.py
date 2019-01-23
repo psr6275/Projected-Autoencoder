@@ -141,6 +141,7 @@ class Cifar_DAE:
                              shuffle = True,validation_data = (xval_n,xval_o),
                              callbacks =[TensorBoard(log_dir = '../logs/mnist_denseDAE',
                                                      histogram_freq=0, write_graph=False)])
+
     def predict(self, testx):
         return self.autoencoder.predict(testx)
     def plot_imgs(self,testX,noise_type = 'peppSalt',noise_scale = 0.3):
@@ -174,3 +175,7 @@ class Cifar_DAE:
             projX = vr*projX +(1-vr)*revX
 
         return projX
+    def save(self,save_path = '../results/cifar_dae.h5'):
+        self.autoencoder.save(save_path)
+    def load_model(self,load_path = '../results/cifar_dae.h5'):
+        self.autoencoder = load_model(load_path)

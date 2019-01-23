@@ -6,6 +6,7 @@ from keras import backend as K
 import numpy as np
 from mnist_ds import *
 import matplotlib.pyplot as plt
+from keras.models import load_model
 #from mnist_dae import corrupt
 
 def corrupt_toy(x,scale = 0.3,rep = 1,noise_type = "gaussian"):
@@ -82,7 +83,10 @@ class Toy_DAE:
         projX = vr*testX + (1-vr)*revX
         for i in range(max_iter):
             revX = self.autoencoder.predict(projX)
-            projX = vr*projX+(1-vr)*revX
         return projX
 
 
+    def save(self,save_path = '../results/toy_dae.h5'):
+        self.autoencoder.save(save_path)
+    def load_model(self,load_path = '../results/toy_dae.h5'):
+        self.autoencoder = load_model(load_path)
