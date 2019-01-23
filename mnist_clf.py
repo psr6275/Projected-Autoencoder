@@ -107,10 +107,14 @@ class Mnist_CNN:
         print("saved path: ", self.save_path)
 
     def predict(self, testX):
+        if len(testX.shape) is not 4:
+            testX = testX.reshape(testX.shape[0],28,28,1)
         y_pred = self.sess.run(self.y_eval, feed_dict={self.eval_imgs: testX})
         return y_pred
 
     def accuracy_score(self, testX, testY):
+        if len(testX.shape) is not 4:
+            testX = testX.reshape(testX.shape[0],28,28,1)
         acc = self.sess.run(self.accuracy, feed_dict={self.eval_imgs: testX, self.labels_eval: testY})
         return acc
 

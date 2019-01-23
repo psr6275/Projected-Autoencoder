@@ -107,9 +107,13 @@ class Mnist_DAE:
 
         plt.show()
     def predict(self,testX):
+        if len(testX.shape) is not 2:
+            testX = testX.reshape(testX.shape[0],-1)
         return self.autoencoder.predict(testX)
     ## dynamical system using the trained DAE model
     def apply_DS(self, testX, vr=0.9, max_iter=30):
+        if len(testX.shape) is not 2:
+            testX = testX.reshape(testX.shape[0],-1)
         revX = self.autoencoder.predict(testX)
         projX = vr*testX + (1-vr)*revX
         for i in range(max_iter):
