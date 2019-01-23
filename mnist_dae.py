@@ -106,7 +106,8 @@ class Mnist_DAE:
             ax.get_yaxis().set_visible(False)
 
         plt.show()
-
+    def predict(self,testX):
+        return self.autoencoder.predict(testX)
     ## dynamical system using the trained DAE model
     def apply_DS(self, testX, vr=0.9, max_iter=30):
         revX = self.autoencoder.predict(testX)
@@ -116,5 +117,8 @@ class Mnist_DAE:
             projX = vr*projX +(1-vr)*revX
 
         return projX
-
+    def save(self,save_path = '../results/mnist_dae.h5'):
+        self.autoencoder.save(save_path)
+    def load_model(self,load_path = '../results/mnist_dae.h5'):
+        self.autoencoder = load_model(load_path)
 
